@@ -1,6 +1,7 @@
 class TodosController < ApplicationController
     before_action :set_todo, only: [:update]
 
+
   # PUTCH /projects/1/todos/1
   def update
     @todo.update(:isCompleted => !@todo.isCompleted)
@@ -9,20 +10,13 @@ class TodosController < ApplicationController
 
   # POST /todos/
   def create
-    @todo = Todo.new(todo_params)
-    if @todo.save
-      render json: @todo, status: :created, location: @todo
-    else
-      render json: @todo.errors, status: :unprocessable_entity
-    end
-  end
+		@project = Project.find_or_create_by!(title: params[:title]) 
+		@project.todos.create(text: params[:todo][:text])
+		render json: @project.to_json(methods: :todos)
+	end
   
   private
     def set_todo
       @todo = Todo.find(params[:id])
-    end
-
-    def todo_params
-      params.require(:todo).permit(:text, :project_id)
     end
 end
