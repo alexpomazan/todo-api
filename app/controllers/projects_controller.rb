@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    @projects = Project.unscoped.all
+    @projects = Project.all
     render json: @projects
   end
 end
