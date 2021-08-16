@@ -1,7 +1,6 @@
 class TodosController < ApplicationController
     before_action :set_todo, only: [:update]
 
-
   # PUTCH /projects/1/todos/1
   def update
     @todo.update(:isCompleted => !@todo.isCompleted)
