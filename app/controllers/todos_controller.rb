@@ -9,8 +9,8 @@ class TodosController < ApplicationController
 
   # POST /todos/
   def create
-		@project = Project.find_or_create_by!(title: params[:title]) 
-		@project.todos.create(text: params[:todo][:text])
+		@project = Project.find_or_create_by!(title: params[:title])
+		@project.todos.find_or_create_by!(text: params[:todo][:text])
 		render json: @project.to_json(methods: :todos)
 	end
   
